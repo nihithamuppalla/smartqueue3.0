@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartQueue | Live OPD & Triage</title>
+    <link rel="stylesheet" href="style.css"> 
+</head>
+<body>
+
+    <div class="app-container">
+        <header class="header">
+            <h1>SmartQueue</h1>
+            <p>Intelligent Hospital Routing & Tracking</p>
+        </header>
+
+        <div class="content">
+            <div id="triage-screen">
+                <div class="intro-text">
+                    <h2>Patient Registration</h2>
+                    <p>Enter details for AI-assisted triage and doctor allocation.</p>
+                </div>
+                
+                <form id="triage-form">
+                    <div class="form-section">
+                        <h4>Contact Information</h4>
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" id="patient-name" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group half">
+                                <label>Phone Number</label>
+                                <input type="tel" id="patient-phone" pattern="[0-9]{10}" required placeholder="10-digit number">
+                            </div>
+                            <div class="form-group half">
+                                <label>Email ID</label>
+                                <input type="email" id="patient-email" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h4>Medical Assessment</h4>
+                        
+                        <div class="form-group disaster-toggle">
+                            <label>
+                                <input type="checkbox" id="disaster-flag">
+                                🚨 Natural Disaster / Mass Casualty Victim
+                            </label>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Primary Concern Category</label>
+                            <select id="incident-type" required>
+                                <option value="general">General Illness / Medical Issue</option>
+                                <option value="heart">Heart / Cardiac Problem</option>
+                                <option value="bone">Bone Damage / Trauma / Accident</option>
+                                <option value="animal">Animal Attack / Bite</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group hidden" id="animal-details-group">
+                            <label>Type of Animal</label>
+                            <select id="animal-type">
+                                <option value="dog_cat">Dog / Cat / Stray</option>
+                                <option value="snake">Snake / Venomous Reptile</option>
+                                <option value="wild">Wild Animal (Boar, Leopard, etc.)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Describe Symptoms Briefly</label>
+                            <textarea id="symptoms" rows="2" placeholder="E.g., Severe chest pain, broken arm, fever..." required></textarea>
+                        </div>
+
+                        <div class="emergency-box">
+                            <h3>📎 Upload Reports & Photos</h3>
+                            <p>Upload prior medical records (PDF/IMG) or injury photos for AI assessment.</p>
+                            <input type="file" id="medical-file" accept="image/*,.pdf" class="file-input">
+                        </div>
+                    </div>
+
+                    <button type="submit" id="submit-btn" class="action-btn">Generate Smart Token</button>
+                </form>
+            </div>
+
+            <div id="tracker-screen" class="hidden">
+                <div class="allocation-banner" id="allocation-banner">
+                    Assigned to: <strong id="assigned-dept">Cardiology</strong>
+                    <br><span id="assigned-doc">Dr. Sharma</span>
+                </div>
+
+                <div class="status-dashboard">
+                    <div class="status-card">
+                        <span class="label">Your Token</span>
+                        <h2 id="my-token-display" class="token-number">--</h2>
+                        <span id="priority-badge" class="badge">Routine</span>
+                    </div>
+                    <div class="status-card right-align">
+                        <span class="label">Est. Wait Time</span>
+                        <h2 id="wait-time" class="time-text">--</h2>
+                    </div>
+                </div>
+
+                <div class="tracker-container">
+                    <div class="train-track"></div>
+                    
+                    <div class="station">
+                        <div class="dot current-dot pulse"></div>
+                        <div class="station-info">
+                            <h3>Currently Consulting</h3>
+                            <p id="current-token" class="highlight-text">Token #--</p>
+                        </div>
+                    </div>
+
+                    <div class="station distance-station">
+                        <div class="dot small-dot"></div>
+                        <p id="distance-text">-- patients ahead of you</p>
+                    </div>
+
+                    <div class="station">
+                        <div class="dot my-dot"></div>
+                        <div class="station-info my-station" id="my-station-box">
+                            <h3>Your Turn</h3>
+                            <p id="my-turn-token">Token #--</p>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="next-btn" class="secondary-btn">Simulate Doctor Finished (Admin)</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script> 
+</body>
+</html>
